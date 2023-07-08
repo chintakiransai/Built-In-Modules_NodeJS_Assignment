@@ -1,0 +1,81 @@
+// //1.to create a package&json file
+npm init --y
+
+//2.fs module add information about Node&js architecture
+const { log } = require('console');
+let fs = require('fs');
+let data = "Node.js is a platform that utilizes JavaScript and is primarily employed for developing web applications that are highly focused on input/output operations, including but not limited to chat applications and multimedia streaming websites. The platform is constructed using Google Chromes V8 JavaScript engine. A web application is a type of software that executes on a server and is displayed by a client's browser that obtains all the application's resources over the internet."
+fs.writeFileSync('./nodejs_architecture.txt',data)
+console.log("Adding information to nodejs_architecture file");
+
+//3.fs module to read the content of nodejs_architecture&txt
+let rd = fs.readFileSync('./nodejs_architecture.txt');
+console.log("Reading nodejs_architecture file"+rd.toString());
+
+//4.fs module to append additional data
+let appendData = "Compared to other server-side languages, Node js has distinct advantages. Its asynchronous model and non-blocking I/O operation improve the scalability and performance of web applications built on other frameworks. Node js can easily handle multiple client requests without requiring multiple threads, consuming less memory and resources. Additionally, it is highly scalable and provides high performance. Node js is also flexible with multiple frameworks and makes the development process easier.Compared to other server-side languages, Node js has distinct advantages. Its asynchronous model and non-blocking I/O operation improve the scalability and performance of web applications built on other frameworks. Node js can easily handle multiple client requests without requiring multiple threads, consuming less memory and resources. Additionally, it is highly scalable and provides high performance. Node js is also flexible with multiple frameworks and makes the development process easier."
+fs.appendFile('./nodejs_architecture.txt',appendData,function(err)
+{
+ if(err){
+    console.log("Error Occured");
+ }
+ else {
+    console.log("Append information to nodejs_architecture file");
+ }
+});
+
+//5.delete the nodejs_architecture.txt file
+fs.unlink('./nodejs_architecture.txt',function(err)
+{
+    if(err) {
+        console.log("Error Occured");
+    }
+    else {
+        console.log("File Deleted SuccessFully");
+    }
+})
+
+//6.use the os module and print the os name and the os release version
+let os = require('os');
+console.log("OS Name: "+os.type());
+console.log("OS Release: "+os.release());
+
+//7.built-in HTTP module to create a server
+let http=require('http')
+http.createServer((req,res) => {
+    if(req.url==='/')
+    {
+        res.write("<h1>I Am Happy To Learn Full Stack Web Development From PW Skills!</h1>");
+    }
+    res.end();
+}).listen(5010);
+console.log("Server is running");
+
+//8.To create a custom event named "subscribe"
+let events =require('events');
+let EventEmitter = new events.EventEmitter();
+EventEmitter.on("subscribe",(msg)=>
+{
+console.log(`Thanks For Subscribing to ${msg}`);
+})
+EventEmitter.emit("subscribe","College Wallah");
+
+//9.create an event handler and call it, Later letes remove the event handler and gain call it
+EventEmitter.on("subscribe",(msg)=>
+{
+console.log(`Thanks For Subscribing to ${msg}`);
+})
+EventEmitter.emit("subscribe","College Wallah");
+EventEmitter.removeAllListeners("subscribe");
+EventEmitter.emit("subscribe","College Wallah");
+
+//.set the maximum number of event listeners to 5
+EventEmitter.on("subscribe",(msg)=>
+{
+console.log(`Thanks For Subscribing to ${msg}`);
+})
+EventEmitter.emit("subscribe","College Wallah");
+
+console.log("The default maximum number of event listners are:"+EventEmitter.getMaxListeners());
+EventEmitter.setMaxListeners(5);
+console.log("The updated maximum number of event listners are:"+EventEmitter.getMaxListeners());
